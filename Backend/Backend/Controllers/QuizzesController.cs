@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
@@ -22,10 +23,13 @@ namespace Backend.Controllers
         }
 
         // GET: api/Quizzes
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Quiz>>> GetQuizzes()
         {
-            return await _context.Quizzes.ToListAsync();
+            var userId = HttpContext.User.Claims.First().Value;
+
+            return await _context.Quizzes.Where(q => q.OwenerId == userId).ToListAsync();
         }
 
         // GET: api/Quizzes/5
@@ -75,9 +79,20 @@ namespace Backend.Controllers
 
         // POST: api/Quizzes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Quiz>> PostQuiz(Quiz quiz)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = HttpContext.User.Claims.First().Value;
+
+            quiz.OwenerId = userId;
+
             _context.Quizzes.Add(quiz);
             await _context.SaveChangesAsync();
 

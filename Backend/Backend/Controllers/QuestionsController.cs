@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Backend.Controllers
 {
     //[Produces("application/json")]
-    [Route("api/Questions")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class QuestionsController : ControllerBase
     {
         private readonly QuizContext _quizContext;
@@ -32,11 +33,23 @@ namespace Backend.Controllers
             return  _quizContext.Questions;
         }
 
+        [HttpGet("{quizId}")]
+        public IEnumerable<Question> Get([FromRoute] int quizId)
+        {
+            return _quizContext.Questions.Where(q => q.QuizId == quizId);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Question question)
         {
+            var quiz = _quizContext.Quizzes.SingleOrDefault(q => q.Id == question.Id);
+            
+            if (quiz == null) return NotFound();
+
+
             if (question != null)
             {
+                
                 _quizContext.Questions.Add(question);
 
                 await _quizContext.SaveChangesAsync();
