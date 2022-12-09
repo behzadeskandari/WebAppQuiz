@@ -26,6 +26,7 @@ import { QuizComponent } from './quiz.component';
 import { QuizzesComponent } from './quizzes.component';
 import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
+import { PlayComponent } from './play.component';
 
 import { AuthInterceptor } from './auth.interceptor';
 
@@ -52,7 +53,8 @@ const routes = [
     QuizComponent,
     QuizzesComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PlayComponent
    ],
   imports: [
     BrowserModule,

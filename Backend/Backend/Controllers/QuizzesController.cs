@@ -32,6 +32,12 @@ namespace Backend.Controllers
             return await _context.Quizzes.Where(q => q.OwenerId == userId).ToListAsync();
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<Quiz>>> GetAllQuizzes()
+        {
+            return await _context.Quizzes.ToListAsync();
+        }
+
         // GET: api/Quizzes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Quiz>> GetQuiz(int id)

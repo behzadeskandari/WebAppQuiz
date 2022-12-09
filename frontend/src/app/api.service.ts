@@ -24,9 +24,13 @@ export class ApiService {
     return this.http.get(`https://localhost:44364/api/Questions/${quizId}`);
   }
   getQuizzes() {
-    return this.http.get(this.BASE_URL_QUIZ);
+    return this.http.get('https://localhost:44364/api/Quizzes/all');
 
   }
+  getAllQuizzes() {
+    return this.http.get(this.BASE_URL_QUIZ);
+  }
+
   postQuestion(question: any) {
     this.http.post(this.BASE_URL_QUESTION, question).subscribe(res => {
       console.log(res, 'resss');
