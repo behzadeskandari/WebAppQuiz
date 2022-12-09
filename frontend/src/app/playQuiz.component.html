@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-content>
+        <!-- <mat-list *ngFor="let q of questions">
+          <mat-list-item  class="clickLink">
+              {{q.text}}
+          </mat-list-item>
+        </mat-list> -->
+        <!-- <div class="example-action-buttons">
+          <button mat-button (click)="null">Expand All</button>
+          <button mat-button (click)="null">Collapse All</button>
+        </div> -->
+
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel *ngFor="let q of questions; let i = index" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{q.text}}
+              </mat-panel-title>
+              <mat-panel-description>
+                <!-- <mat-icon>account_circle</mat-icon> -->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <!-- [(ngModel)]="q.answer" -->
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="q.selectedAnswer">
+              <mat-radio-button class="fullwidth" value="1" *ngFor="let answer of q.answers" [value]="answer">
+                {{answer}}
+              </mat-radio-button>
+            </mat-radio-group>
+            <!-- {{q.correctAnswer}} -->
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" min="1">
+            </mat-form-field> -->
+            <mat-action-row>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+
+        </mat-accordion>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <button mat-button color="primary" (click)="finish()"></button>
+  </mat-card-actions>
+</mat-card>
+

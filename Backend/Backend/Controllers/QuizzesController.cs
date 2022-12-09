@@ -35,6 +35,7 @@ namespace Backend.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Quiz>>> GetAllQuizzes()
         {
+
             return await _context.Quizzes.ToListAsync();
         }
 

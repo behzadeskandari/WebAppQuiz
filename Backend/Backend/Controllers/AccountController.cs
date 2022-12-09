@@ -47,19 +47,7 @@ namespace Backend.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            var claims = new Claim[] {
-
-                    new Claim(JwtRegisteredClaimNames.Sub,user.Id)
-            };
-
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is spimple Secret Phrase"));
-
-            var signingCredentials = new SigningCredentials(signingKey,SecurityAlgorithms.HmacSha256);
-
-
-            var jwt = new JwtSecurityToken(signingCredentials: signingCredentials,claims: claims);
-
-            return Ok(new JwtSecurityTokenHandler().WriteToken(jwt));
+            return Ok(CreateToken(user));
 
 
         }
